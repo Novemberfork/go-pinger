@@ -14,6 +14,7 @@ func main() {
 		fmt.Println("Commands:")
 		fmt.Println("  test    - Test the current configuration")
 		fmt.Println("  init    - Initialize a new configuration file")
+		fmt.Println("  version - Show version information")
 		fmt.Println("  help    - Show this help message")
 		os.Exit(1)
 	}
@@ -25,6 +26,8 @@ func main() {
 		testConfiguration()
 	case "init":
 		initConfiguration()
+	case "version":
+		showVersion()
 	case "help":
 		showHelp()
 	default:
@@ -75,12 +78,17 @@ func initConfiguration() {
 	fmt.Println("🧪 Run 'make test' to test your configuration")
 }
 
+func showVersion() {
+	fmt.Println(pinger.VersionInfo())
+}
+
 func showHelp() {
 	fmt.Println("go-pinger - Simple notification library for Go")
 	fmt.Println("")
 	fmt.Println("Commands:")
 	fmt.Println("  test    - Test the current configuration")
 	fmt.Println("  init    - Initialize a new configuration file")
+	fmt.Println("  version - Show version information")
 	fmt.Println("  help    - Show this help message")
 	fmt.Println("")
 	fmt.Println("Configuration:")

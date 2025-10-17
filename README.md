@@ -1,5 +1,9 @@
 # go-pinger
 
+[![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)](https://github.com/NovemberFork/go-pinger/releases)
+[![Go Version](https://img.shields.io/badge/go-1.21+-blue.svg)](https://golang.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 A simple Go library for sending notifications across multiple channels (desktop, iMessage, and more coming soon).
 
 ## Features
@@ -64,11 +68,20 @@ func main() {
 | `ENABLE_IMESSAGE` | Enable iMessage notifications | `false` |
 | `PHONE_NUMBER` | Phone number for iMessage (optional) | `""` |
 
+## Installation
+
+```bash
+go get github.com/NovemberFork/go-pinger@v0.0.1
+```
+
 ## Commands
 
 - `make init` - Create a new configuration file
 - `make test` - Test the current configuration
 - `make build` - Build the binary
+- `make version` - Show version information
+- `make tag` - Create git tag for current version
+- `make release` - Create and push release tag
 - `make clean` - Clean build artifacts
 
 ## Future Features

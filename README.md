@@ -17,15 +17,17 @@ A simple Go library for sending notifications across multiple channels (desktop,
 ## Quick Start
 
 1. **Initialize configuration:**
+
    ```bash
    make init
    ```
 
 2. **Edit configuration:**
    Edit `pinger.conf` to set your preferences:
+
    ```ini
-   ENABLE_DESKTOP=true
    ENABLE_IMESSAGE=true
+   DESKTOP_SOUND=Ping
    PHONE_NUMBER=+1234567890
    ```
 
@@ -47,13 +49,14 @@ func main() {
     // Create configuration
     config := pinger.PingerConfig{
         EnableDesktop:  true,
+        DesktopSound:   "Ping",
         EnableIMessage: true,
         PhoneNumber:    "+1234567890",
     }
-    
+
     // Create pinger instance
     p := pinger.NewPinger(config)
-    
+
     // Send notifications
     p.Ping("Alert", "Something important happened!")
     p.PingSimple("Simple message")
@@ -62,11 +65,12 @@ func main() {
 
 ## Configuration
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `ENABLE_DESKTOP` | Enable desktop notifications | `true` |
-| `ENABLE_IMESSAGE` | Enable iMessage notifications | `false` |
-| `PHONE_NUMBER` | Phone number for iMessage (optional) | `""` |
+| Setting           | Description                          | Default |
+| ----------------- | ------------------------------------ | ------- |
+| `ENABLE_DESKTOP`  | Enable desktop notifications         | `true`  |
+| `DESKTOP_SOUND`   | Sound for desktop notifications      | `Ping`  |
+| `ENABLE_IMESSAGE` | Enable iMessage notifications        | `false` |
+| `PHONE_NUMBER`    | Phone number for iMessage (optional) | `""`    |
 
 ## Installation
 

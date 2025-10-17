@@ -1,6 +1,6 @@
 # go-pinger
 
-[![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)](https://github.com/NovemberFork/go-pinger/releases)
+[![Version](https://img.shields.io/badge/version-0.0.2-blue.svg)](https://github.com/NovemberFork/go-pinger/releases)
 [![Go Version](https://img.shields.io/badge/go-1.21+-blue.svg)](https://golang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -75,7 +75,7 @@ func main() {
 ## Installation
 
 ```bash
-go get github.com/NovemberFork/go-pinger@v0.0.1
+go get github.com/NovemberFork/go-pinger@v0.0.2
 ```
 
 ## Commands

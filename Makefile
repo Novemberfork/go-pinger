@@ -1,6 +1,6 @@
 # go-pinger Makefile
 
-VERSION := 0.0.1
+VERSION := 0.0.2
 GIT_TAG := v$(VERSION)
 
 .PHONY: build test init clean help version tag release

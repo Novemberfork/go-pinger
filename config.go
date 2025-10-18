@@ -11,10 +11,13 @@ import (
 // LoadConfigFromFile loads configuration from a config file
 func LoadConfigFromFile(filename string) (*PingerConfig, error) {
 	config := &PingerConfig{
-		EnableDesktop:  true,   // Default to enabled
-		DesktopSound:   "Ping", // Default sound
-		EnableIMessage: false,  // Default to disabled
-		PhoneNumber:    "",
+		EnableDesktop:    true,   // Default to enabled
+		DesktopSound:     "Ping", // Default sound
+		EnableIMessage:   false,  // Default to disabled
+		PhoneNumber:      "",
+		EnableTelegram:   false, // Default to disabled
+		TelegramBotToken: "",
+		TelegramChatID:   "",
 	}
 
 	file, err := os.Open(filename)
@@ -51,6 +54,14 @@ func LoadConfigFromFile(filename string) (*PingerConfig, error) {
 				}
 			case "PHONE_NUMBER":
 				config.PhoneNumber = value
+			case "ENABLE_TELEGRAM":
+				if enabled, err := strconv.ParseBool(value); err == nil {
+					config.EnableTelegram = enabled
+				}
+			case "TELEGRAM_BOT_TOKEN":
+				config.TelegramBotToken = value
+			case "TELEGRAM_CHAT_ID":
+				config.TelegramChatID = value
 			}
 		}
 	}
@@ -74,6 +85,10 @@ func SaveConfigToFile(config *PingerConfig, filename string) error {
 	fmt.Fprintf(file, "\n# iMessage Notifications\n")
 	fmt.Fprintf(file, "ENABLE_IMESSAGE=%t\n", config.EnableIMessage)
 	fmt.Fprintf(file, "PHONE_NUMBER=%s\n", config.PhoneNumber)
+	fmt.Fprintf(file, "\n# Telegram Notifications\n")
+	fmt.Fprintf(file, "ENABLE_TELEGRAM=%t\n", config.EnableTelegram)
+	fmt.Fprintf(file, "TELEGRAM_BOT_TOKEN=%s\n", config.TelegramBotToken)
+	fmt.Fprintf(file, "TELEGRAM_CHAT_ID=%s\n", config.TelegramChatID)
 	fmt.Fprintf(file, "\n# Available Desktop Sounds:\n")
 	fmt.Fprintf(file, "# Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink\n")
 

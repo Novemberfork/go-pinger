@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 // PingerConfig holds the configuration for the pinger
@@ -15,6 +17,11 @@ type PingerConfig struct {
 	// iMessage notifications
 	EnableIMessage bool
 	PhoneNumber    string
+
+	// Telegram notifications
+	EnableTelegram   bool
+	TelegramBotToken string
+	TelegramChatID   string
 }
 
 // Pinger provides a simple interface for sending notifications
@@ -66,6 +73,11 @@ func (p *Pinger) Ping(title, message string) error {
 		p.sendIMessage(message)
 	}
 
+	// Send Telegram message if enabled
+	if p.config.EnableTelegram && p.config.TelegramBotToken != "" && p.config.TelegramChatID != "" {
+		p.sendTelegramMessage(title, message)
+	}
+
 	return nil
 }
 
@@ -88,6 +100,12 @@ func (p *Pinger) TestConnection() error {
 	if p.config.EnableIMessage && p.config.PhoneNumber != "" {
 		fmt.Printf("📱 Testing iMessage to %s (uses your default ringtone)...\n", p.config.PhoneNumber)
 		p.sendIMessage("🧪 go-pinger Test - All systems working!")
+	}
+
+	// Test Telegram if enabled
+	if p.config.EnableTelegram && p.config.TelegramBotToken != "" && p.config.TelegramChatID != "" {
+		fmt.Printf("✈️  Testing Telegram to chat %s...\n", p.config.TelegramChatID)
+		p.sendTelegramMessage("go-pinger Test", "🧪 Testing Telegram notifications - All systems working!")
 	}
 
 	fmt.Println("✅ Notification test complete!")
@@ -118,5 +136,32 @@ func (p *Pinger) sendIMessage(message string) {
 		fmt.Printf("📱 (iMessage failed, but desktop notification sent)\n")
 	} else {
 		fmt.Printf("📱 iMessage sent to %s\n", p.config.PhoneNumber)
+	}
+}
+
+// sendTelegramMessage sends a message to Telegram
+func (p *Pinger) sendTelegramMessage(title, message string) {
+	bot, err := tgbotapi.NewBotAPI(p.config.TelegramBotToken)
+	if err != nil {
+		fmt.Printf("✈️  (Telegram failed: %v)\n", err)
+		return
+	}
+
+	// Combine title and message for Telegram
+	fullMessage := fmt.Sprintf("*%s*\n\n%s", title, message)
+
+	msg := tgbotapi.NewMessage(0, fullMessage)
+	msg.ParseMode = "Markdown"
+
+	// Parse chat ID
+	var chatID int64
+	fmt.Sscanf(p.config.TelegramChatID, "%d", &chatID)
+	msg.ChatID = chatID
+
+	_, err = bot.Send(msg)
+	if err != nil {
+		fmt.Printf("✈️  (Telegram failed: %v)\n", err)
+	} else {
+		fmt.Printf("✈️  Telegram message sent to chat %s\n", p.config.TelegramChatID)
 	}
 }

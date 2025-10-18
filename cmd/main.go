@@ -61,10 +61,13 @@ func initConfiguration() {
 
 	// Create default configuration
 	config := &pinger.PingerConfig{
-		EnableDesktop:  true,
-		DesktopSound:   "Ping",
-		EnableIMessage: false,
-		PhoneNumber:    "1112223333",
+		EnableDesktop:    true,
+		DesktopSound:     "Ping",
+		EnableIMessage:   false,
+		PhoneNumber:      "1112223333",
+		EnableTelegram:   false,
+		TelegramBotToken: "",
+		TelegramChatID:   "",
 	}
 
 	// Save to file
@@ -93,10 +96,13 @@ func showHelp() {
 	fmt.Println("")
 	fmt.Println("Configuration:")
 	fmt.Println("  Edit pinger.conf to configure notification preferences")
-	fmt.Println("  ENABLE_DESKTOP=true/false  - Enable/disable desktop notifications")
-	fmt.Println("  DESKTOP_SOUND=SoundName    - Desktop notification sound")
-	fmt.Println("  ENABLE_IMESSAGE=true/false - Enable/disable iMessage notifications")
-	fmt.Println("  PHONE_NUMBER=+1234567890   - Phone number for iMessage (optional)")
+	fmt.Println("  ENABLE_DESKTOP=true/false       - Enable/disable desktop notifications")
+	fmt.Println("  DESKTOP_SOUND=SoundName         - Desktop notification sound")
+	fmt.Println("  ENABLE_IMESSAGE=true/false      - Enable/disable iMessage notifications")
+	fmt.Println("  PHONE_NUMBER=+1234567890        - Phone number for iMessage (optional)")
+	fmt.Println("  ENABLE_TELEGRAM=true/false      - Enable/disable Telegram notifications")
+	fmt.Println("  TELEGRAM_BOT_TOKEN=your_token   - Bot token from @BotFather")
+	fmt.Println("  TELEGRAM_CHAT_ID=your_chat_id   - Chat ID to send messages to")
 	fmt.Println("")
 	fmt.Println("Available desktop sounds: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink")
 }
